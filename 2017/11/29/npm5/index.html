@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="npm5.0新增package-lock.json文件挖的坑一、从package.json说起 什么是package.json？简单地说：就是管理npm包的文件，包含了项目所依赖的npm包、项目的配置信息。 创建方式：npm init，按照系统提示填写相关信息即可（回车设置为空）。 具体配置说明，详见package.j">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://zhangyunchen.cc/2017/11/29/npm5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="npm5.0新增package-lock.json文件挖的坑一、从package.json说起 什么是package.json？简单地说：就是管理npm包的文件，包含了项目所依赖的npm包、项目的配置信息。 创建方式：npm init，按照系统提示填写相关信息即可（回车设置为空）。 具体配置说明，详见package.json字段全解  二、npm5.0的变化升级了Node.js v8.0后，自带的">
+<meta property="og:updated_time" content="2017-11-29T03:28:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="npm5.0新增package-lock.json文件挖的坑一、从package.json说起 什么是package.json？简单地说：就是管理npm包的文件，包含了项目所依赖的npm包、项目的配置信息。 创建方式：npm init，按照系统提示填写相关信息即可（回车设置为空）。 具体配置说明，详见package.json字段全解  二、npm5.0的变化升级了Node.js v8.0后，自带的">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhangyunchen.cc"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-npm5" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/29/npm5/" class="article-date">
+  <time datetime="2017-11-29T03:05:05.000Z" itemprop="datePublished">2017-11-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="npm5-0新增package-lock-json文件挖的坑"><a href="#npm5-0新增package-lock-json文件挖的坑" class="headerlink" title="npm5.0新增package-lock.json文件挖的坑"></a>npm5.0新增package-lock.<strong>json</strong>文件挖的坑</h2><h4 id="一、从package-json说起"><a href="#一、从package-json说起" class="headerlink" title="一、从package.json说起"></a>一、从package.json说起</h4><ol>
+<li>什么是package.json？简单地说：就是管理npm包的文件，包含了项目所依赖的npm包、项目的配置信息。</li>
+<li>创建方式：npm init，按照系统提示填写相关信息即可（回车设置为空）。</li>
+<li>具体配置说明，详见<a href="http://blog.csdn.net/woxueliuyun/article/details/39294375" target="_blank" rel="noopener">package.json字段全解</a></li>
+</ol>
+<h4 id="二、npm5-0的变化"><a href="#二、npm5-0的变化" class="headerlink" title="二、npm5.0的变化"></a>二、npm5.0的变化</h4><p>升级了Node.js v8.0后，自带的npm也升级到了5.0,那么 npm5有什么变化呢?</p>
+<ul>
+<li>使用 ==npm install xxx== 命令安装模块时，不再需要 ==–save== 选项，会自动将模块依赖信息保存到 package.json 文件；</li>
+<li>安装模块操作（改变 node_modules 文件夹内容）会生成或更新 package-lock.json 文件</li>
+<li>发布的模块不会包含 <strong>package-lock.json</strong> 文件</li>
+<li>如果手动修改了 package.json 文件中已有模块的版本，直接执行 ==npm install== 不会安装新指定的版本，只能通过 ==npm install name@version== 更新</li>
+</ul>
+<h4 id="三、package-lock-json的含义-amp-npm5的坑"><a href="#三、package-lock-json的含义-amp-npm5的坑" class="headerlink" title="三、package-lock.json的含义&amp;npm5的坑"></a>三、package-lock.json的含义&amp;npm5的坑</h4><p>我们先来看一段<a href="https://docs.npmjs.com/files/package-lock.json" target="_blank" rel="noopener">官方解释</a></p>
+<blockquote>
+<p>package-lock.json is automatically generated for any operations where npm modifies either the node_modules tree, or package.json. It describes the exact tree that was generated, such that subsequent installs are able to generate identical trees, regardless of intermediate dependency updates.</p>
+</blockquote>
+<p>大致意思：<br>package-lock.json是当 node_modules 或 package.json 发生变化时自动生成的文件。它记录了整个 node_modules 文件夹的树状结构，甚至连模块的下载地址都记录了，重新安装时只需下载文件即可。因此重装模块速度非常快。</p>
+<p>然而，npm5.0在提升速度的同时也挖了一个大大的坑：</p>
+<p><strong>以后修改 package.json 文件相应模块的版本号，再执行 ==npm install== 不会更新了，只能手动 ==npm install name@version== 指定版本号来安装。<br>然后它会自动更新 package-lock.json 文件。</strong></p>
+<p>直接执行 ==npm install== 时，如果不存在 package-lock.json 文件，它会根据安装模块后的 node_modules 目录结构来创建；<br>如果已经存在 package-lock.json 文件，则它只会根据 package-lock.json 文件指定的结构来下载模块，并不会理会 package.json 文件。</p>
+<p>目前GitHub上已有相关issue了：<a href="https://github.com/npm/npm/issues/16866" target="_blank" rel="noopener">https://github.com/npm/npm/issues/16866</a></p>
+<p>【参考文档】</p>
+<ul>
+<li><a href="https://docs.npmjs.com/files/package.json" target="_blank" rel="noopener">https://docs.npmjs.com/files/package.json</a></li>
+<li><a href="http://blog.csdn.net/zmrdlb/article/details/53190696" target="_blank" rel="noopener">http://blog.csdn.net/zmrdlb/article/details/53190696</a></li>
+<li><a href="http://blog.csdn.net/aaa333qwe/article/details/78021704" target="_blank" rel="noopener">http://blog.csdn.net/aaa333qwe/article/details/78021704</a></li>
+<li><a href="https://docs.npmjs.com/files/package-lock.json" target="_blank" rel="noopener">https://docs.npmjs.com/files/package-lock.json</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zhangyunchen.cc/2017/11/29/npm5/" data-id="cjaki2hgd0001k7fyr2qk1mw0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/11/29/first/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          first
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/11/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/11/29/first/">first</a>
+          </li>
+        
+          <li>
+            <a href="/2017/11/29/npm5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/11/29/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
